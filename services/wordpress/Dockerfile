@@ -39,3 +39,22 @@ RUN wp core download \
   --version=latest \
   --path=/var/www/html \
   --allow-root
+
+ARG MYSQL_DATABASE
+ARG MYSQL_USER
+ARG MYSQL_PASSWORD
+ARG MYSQL_HOST
+
+# `wp-config.php` を作成
+COPY wp-config-extra.txt /tmp/
+RUN cat /tmp/wp-config-extra.txt | \
+  wp config create \
+  --dbname="$MYSQL_DATABASE" \
+  --dbuser="$MYSQL_USER" \
+  --dbpass="$MYSQL_PASSWORD" \
+  --dbhost="$MYSQL_HOST" \
+  --dbcharset=utf8mb4 \
+  --dbcollate=utf8mb4_unicode_ci \
+  --extra-php \
+  --skip-check \
+  --allow-root

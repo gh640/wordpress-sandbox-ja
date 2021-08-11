@@ -29,13 +29,7 @@ docker compose pull
 docker compose up -d
 ```
 
-コンテナを起動するとポート `8000` で WordPress が起動するのでブラウザからインストール操作を行います。
-
-- データベース名: `wp`
-- ユーザー名: `wp`
-- パスワード: `wp`
-- データベースのホスト名: `db`
-- テーブル接頭辞: `wp_` （他のものでも OK ）
+コンテナを起動するとポート `8000` で WordPress が起動するのでブラウザからインストール操作を行います（データベース接続設定はイメージのビルド時に行実行済みです）。
 
 #### GitHub Codespaces を使う場合
 
@@ -53,18 +47,6 @@ wp --allow-root option update siteurl 'https://xxx.githubpreview.dev'
 ```
 
 ※ `xxx.githubpreview.dev` の部分は実際に発行された URL にします
-
-リバースプロキシ関連の処理を `wp-config.php` に追加します。
-
-```bash
-docker compose exec wordpress vim wp-config.php
-```
-
-```php
-if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
-  $_SERVER['HTTPS'] = 'on';
-}
-```
 
 ### 停止
 

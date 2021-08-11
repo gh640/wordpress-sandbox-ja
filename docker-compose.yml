@@ -2,7 +2,13 @@ version: "3"
 
 services:
   wordpress:
-    build: services/wordpress
+    build: 
+      context: ./services/wordpress
+      args:
+        MYSQL_DATABASE: wp
+        MYSQL_USER: wp
+        MYSQL_PASSWORD: wp
+        MYSQL_HOST: db
     ports:
       - "8000:80"
   db:
