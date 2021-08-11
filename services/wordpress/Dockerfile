@@ -1,8 +1,15 @@
 FROM php:7.4-apache
 
 RUN apt-get update && \
-  apt-get install -y zlib1g-dev libzip-dev default-mysql-client \
-    libonig-dev libpng-dev && \
+  apt-get install -y \
+    default-mysql-client \
+    less \
+    libonig-dev \
+    libpng-dev \
+    libzip-dev \
+    vim \
+    zlib1g-dev \
+    && \
   rm -rf /var/lib/apt/lists/*
 
 # タイムゾーンの設定
