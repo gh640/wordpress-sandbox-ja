@@ -97,3 +97,10 @@ docker compose exec wordpress wp --allow-root
 ```
 
 実行ユーザーが `root` のままなので `--allow-root` オプションを付ける必要があります。
+
+## 関連情報
+
+かんたんな説明記事を書きました。
+
+- [GitHub Codespaces で WordPress を動かす方法
+ | gotohayato.com](https://gotohayato.com/content/543/)
