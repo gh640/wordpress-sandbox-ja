@@ -29,24 +29,52 @@ docker compose pull
 docker compose up -d
 ```
 
-コンテナを起動するとポート `8000` で WordPress が起動するのでブラウザからインストール操作を行います（データベース接続設定はイメージのビルド時に行実行済みです）。
+コンテナを起動すると `localhost` のポート `8000` で WordPress が起動するのでブラウザまたはターミナルでインストール操作を行います。
+
+ターミナルからインストールする場合のイメージ:
+
+```bash
+WP_URL="http://localhost:8000"
+WP_ADMIN_USER="admin"
+WP_ADMIN_EMAIL="example@example.com"
+WP_ADMIN_PASSWORD="password"
+
+docker compose exec wordpress \
+  wp --allow-root core install \
+  --url="$WP_URL" \
+  --title="WordPress サンドボックス" \
+  --admin_user="$WP_ADMIN_USER" \
+  --admin_email="$WP_ADMIN_EMAIL" \
+  --admin_password="$WP_ADMIN_PASSWORD" \
+  --skip-email
+```
 
 #### GitHub Codespaces を使う場合
 
-GitHub Codespaces でプレビューを利用する場合は URL が異なるのでプラスアルファの手間が必要です。
+GitHub Codespaces でプレビューを利用する場合は、 URL が `localhost` ではないので、ブラウザではなくターミナルからインストールを行う方がスムーズです。
 
-`home` と `siteurl` を `localhost` から実際の URL に変更します。
-
-```bash
-docker compose exec wordpress bash
-```
+イメージ:
 
 ```bash
-wp --allow-root option update home 'https://xxx.githubpreview.dev'
-wp --allow-root option update siteurl 'https://xxx.githubpreview.dev'
+WP_URL="https://${CODESPACE_NAME}-8000.githubpreview.dev"
+WP_ADMIN_USER="admin"
+WP_ADMIN_EMAIL="example@example.com"
+WP_ADMIN_PASSWORD="password"
+
+docker compose exec wordpress \
+  wp --allow-root core install \
+  --url="$WP_URL" \
+  --title="WordPress サンドボックス" \
+  --admin_user="$WP_ADMIN_USER" \
+  --admin_email="$WP_ADMIN_EMAIL" \
+  --admin_password="$WP_ADMIN_PASSWORD" \
+  --skip-email
 ```
 
-※ `xxx.githubpreview.dev` の部分は実際に発行された URL にします
+`wp` は `wordpress` イメージにインストールされた WP-CLI です。
+
+コンテナ起動直後に実行すると、 MySQL が起動しきっておらずデータベース接続エラーが起こることがあります。
+その場合は少し（数秒）待ってから再度コマンドを実行します。
 
 ### 停止
 
