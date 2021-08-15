@@ -73,10 +73,18 @@ docker compose exec wordpress \
 
 `wp` は `wordpress` イメージにインストールされた WP-CLI です。
 
+このコマンドはリポジトリ内の `codespaces/install-wordpress-on-docker.sh` に記述してあるので、上のコマンドの代わりにこのスクリプトを実行しても OK です。
+
+```bash
+./codespaces/install-wordpress-on-docker.sh
+```
+
 コンテナ起動直後に実行すると、 MySQL が起動しきっておらずデータベース接続エラーが起こることがあります。
 その場合は少し（数秒）待ってから再度コマンドを実行します。
 
 ### 停止
+
+触り終わったらコンテナを停止します。
 
 ```bash
 docker compose down
