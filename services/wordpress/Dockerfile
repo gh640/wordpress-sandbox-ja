@@ -58,3 +58,5 @@ RUN cat /tmp/wp-config-extra.txt | \
   --extra-php \
   --skip-check \
   --allow-root
+
+RUN chown -R www-data:www-data .
