@@ -12,7 +12,7 @@ services:
     ports:
       - "8000:80"
   db:
-    image: mariadb:10.6
+    image: mariadb:10.7
     command:
       - mysqld
       - --character-set-server=utf8mb4
