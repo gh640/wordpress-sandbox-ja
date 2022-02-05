@@ -4,13 +4,13 @@
 
 ## 動作確認時の環境
 
-- Docker 20.10.7
-- Docker Compose 2.0.0-beta.6
+- Docker 20.10.12
+- Docker Compose 2.2.3
 
 ## 内容物
 
 - Apache 2.4
-- PHP 7.4
+- PHP 8.1
 - WordPress 日本語版 最新
 - WP-CLI 最新
 
