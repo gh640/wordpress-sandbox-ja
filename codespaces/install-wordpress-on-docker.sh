@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-WP_URL="https://${CODESPACE_NAME}-8000.githubpreview.dev"
+WP_URL="https://${CODESPACE_NAME}-80.githubpreview.dev"
 WP_ADMIN_USER="admin"
 WP_ADMIN_EMAIL="example@example.com"
 WP_ADMIN_PASSWORD="password"
