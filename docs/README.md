@@ -29,7 +29,7 @@ docker compose pull
 docker compose up -d
 ```
 
-コンテナを起動すると `localhost` のポート `8000` で WordPress が起動するのでブラウザまたはターミナルでインストール操作を行います。
+コンテナを起動すると `localhost` のポート `80` で WordPress が起動するのでブラウザまたはターミナルでインストール操作を行います。
 
 ブラウザからインストールする場合のイメージ:
 
@@ -38,7 +38,7 @@ docker compose up -d
 ターミナルからインストールする場合のイメージ:
 
 ```bash
-WP_URL="http://localhost:8000"
+WP_URL="http://localhost"
 WP_ADMIN_USER="admin"
 WP_ADMIN_EMAIL="example@example.com"
 WP_ADMIN_PASSWORD="password"
@@ -60,7 +60,7 @@ GitHub Codespaces でプレビューを利用する場合は、 URL が `localho
 イメージ:
 
 ```bash
-WP_URL="https://${CODESPACE_NAME}-8000.githubpreview.dev"
+WP_URL="https://${CODESPACE_NAME}-80.githubpreview.dev"
 WP_ADMIN_USER="admin"
 WP_ADMIN_EMAIL="example@example.com"
 WP_ADMIN_PASSWORD="password"
@@ -86,7 +86,11 @@ docker compose exec wordpress \
 コンテナ起動直後に実行すると、 MySQL が起動しきっておらずデータベース接続エラーが起こることがあります。
 その場合は少し（数秒）待ってから再度コマンドを実行します。
 
-インストールが完了したら管理画面にログインできます。
+ポートの公開設定（ Visibility ）が private だとブラウザでアクセスしたときに CSS などが正しく読み込まれないので、ポートの公開設定を public に変更します。
+
+![ポートの公開設定を Public に変更](./assets/screenshot-github-codespaces-port.png)
+
+管理画面にログインできます。
 
 ![ログイン](./assets/screenshot-login.png)
 
