@@ -86,7 +86,11 @@ docker compose exec wordpress \
 コンテナ起動直後に実行すると、 MySQL が起動しきっておらずデータベース接続エラーが起こることがあります。
 その場合は少し（数秒）待ってから再度コマンドを実行します。
 
-インストールが完了したら管理画面にログインできます。
+ポートの公開設定（ Visibility ）が private だとブラウザでアクセスしたときに CSS などが正しく読み込まれないので、ポートの公開設定を public に変更します。
+
+![ポートの公開設定を Public に変更](./assets/screenshot-github-codespaces-port.png)
+
+管理画面にログインできます。
 
 ![ログイン](./assets/screenshot-login.png)
 
