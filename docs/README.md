@@ -4,8 +4,8 @@
 
 ## 動作確認時の環境
 
-- Docker 20.10.12
-- Docker Compose 2.2.3
+- Docker 24.0.2
+- Docker Compose 2.18.1
 
 ## 内容物
 
