@@ -13,8 +13,10 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/*
 
 # タイムゾーンの設定
+ENV TZ "Asia/Tokyo"
 RUN rm /etc/localtime && \
-  ln -s /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+  ln -s /usr/share/zoneinfo/${TZ} /etc/localtime && \
+  dpkg-reconfigure -f noninteractive tzdata
 
 # PHP 拡張の設定
 RUN docker-php-ext-install zip mysqli gd exif opcache && \
@@ -26,12 +28,12 @@ RUN docker-php-ext-install zip mysqli gd exif opcache && \
   docker-php-ext-enable apcu
 
 # `php.ini` を用意
-RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+RUN mv "${PHP_INI_DIR}/php.ini-development" "${PHP_INI_DIR}/php.ini"
 
 # WP-CLI をインストール
 ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /opt/wp-cli/bin/wp
 RUN chmod +x /opt/wp-cli/bin/wp
-ENV PATH="$PATH:/opt/wp-cli/bin"
+ENV PATH="${PATH}:/opt/wp-cli/bin"
 
 # WordPress の最新版をダウンロード
 RUN wp core download \
@@ -49,10 +51,10 @@ ARG MYSQL_HOST
 COPY wp-config-extra.txt /tmp/
 RUN cat /tmp/wp-config-extra.txt | \
   wp config create \
-  --dbname="$MYSQL_DATABASE" \
-  --dbuser="$MYSQL_USER" \
-  --dbpass="$MYSQL_PASSWORD" \
-  --dbhost="$MYSQL_HOST" \
+  --dbname="${MYSQL_DATABASE}" \
+  --dbuser="${MYSQL_USER}" \
+  --dbpass="${MYSQL_PASSWORD}" \
+  --dbhost="${MYSQL_HOST}" \
   --dbcharset=utf8mb4 \
   --dbcollate=utf8mb4_unicode_ci \
   --extra-php \
