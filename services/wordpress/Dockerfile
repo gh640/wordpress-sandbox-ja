@@ -19,12 +19,18 @@ RUN rm /etc/localtime && \
   dpkg-reconfigure -f noninteractive tzdata
 
 # PHP 拡張の設定
-RUN docker-php-ext-install zip mysqli gd exif opcache && \
+RUN docker-php-ext-install -j"$(nproc)" \
+    exif \
+    gd \
+    mysqli \
+    opcache \
+    zip && \
   pecl install apcu && \
-  docker-php-ext-configure zip && \
-  docker-php-ext-configure mysqli && \
-  docker-php-ext-configure gd && \
   docker-php-ext-configure exif && \
+  docker-php-ext-configure gd && \
+  docker-php-ext-configure mysqli && \
+  docker-php-ext-configure opcache && \
+  docker-php-ext-configure zip && \
   docker-php-ext-enable apcu
 
 # `php.ini` を用意
