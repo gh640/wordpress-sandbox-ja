@@ -113,10 +113,8 @@ docker volume rm wordpress-sandbox-ja_db_data
 コンテナに WP-CLI がインストールされています。
 
 ```bash
-docker compose exec wordpress wp --allow-root
+docker compose exec wordpress wp
 ```
-
-実行ユーザーが `root` のままなので `--allow-root` オプションを付ける必要があります。
 
 ## 関連情報
 

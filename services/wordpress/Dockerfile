@@ -38,8 +38,12 @@ RUN mv "${PHP_INI_DIR}/php.ini-development" "${PHP_INI_DIR}/php.ini"
 
 # WP-CLI をインストール
 ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /opt/wp-cli/bin/wp
-RUN chmod +x /opt/wp-cli/bin/wp
+RUN chmod +rx /opt/wp-cli/bin/wp
 ENV PATH="${PATH}:/opt/wp-cli/bin"
+
+RUN chown -R www-data:www-data .
+
+USER www-data
 
 # WordPress の最新版をダウンロード
 RUN wp core download \
@@ -64,7 +68,4 @@ RUN cat /tmp/wp-config-extra.txt | \
   --dbcharset=utf8mb4 \
   --dbcollate=utf8mb4_unicode_ci \
   --extra-php \
-  --skip-check \
-  --allow-root
-
-RUN chown -R www-data:www-data .
+  --skip-check
