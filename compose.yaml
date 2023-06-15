@@ -10,17 +10,17 @@ services:
     ports:
       - "80:80"
   db:
-    image: mariadb:10.7
+    image: mariadb:11.0
     command:
-      - mysqld
+      - mariadbd
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
     environment:
       TZ: Asia/Tokyo
-      MYSQL_RANDOM_ROOT_PASSWORD: 1
-      MYSQL_DATABASE: wp
-      MYSQL_USER: wp
-      MYSQL_PASSWORD: wp
+      MARIADB_RANDOM_ROOT_PASSWORD: 1
+      MARIADB_DATABASE: wp
+      MARIADB_USER: wp
+      MARIADB_PASSWORD: wp
     volumes:
       - db_data:/var/lib/mysql
 
