@@ -4,8 +4,11 @@ RUN apt-get update && \
   apt-get install -y \
     default-mysql-client \
     less \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
     libonig-dev \
     libpng-dev \
+    libwebp-dev \
     libzip-dev \
     vim \
     zlib1g-dev \
@@ -19,19 +22,21 @@ RUN rm /etc/localtime && \
   dpkg-reconfigure -f noninteractive tzdata
 
 # PHP 拡張の設定
-RUN docker-php-ext-install -j"$(nproc)" \
+RUN docker-php-ext-configure exif && \
+  # デフォルトの PNG に加えて FreeType JPEG WEBP をサポート
+  docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp && \
+  docker-php-ext-configure mysqli && \
+  docker-php-ext-configure opcache && \
+  docker-php-ext-configure zip && \
+  docker-php-ext-install -j"$(nproc)" \
     exif \
     gd \
     mysqli \
     opcache \
     zip && \
   pecl install apcu && \
-  docker-php-ext-configure exif && \
-  docker-php-ext-configure gd && \
-  docker-php-ext-configure mysqli && \
-  docker-php-ext-configure opcache && \
-  docker-php-ext-configure zip && \
-  docker-php-ext-enable apcu
+  docker-php-ext-enable apcu && \
+  a2enmod headers
 
 # `php.ini` を用意
 RUN mv "${PHP_INI_DIR}/php.ini-development" "${PHP_INI_DIR}/php.ini"
