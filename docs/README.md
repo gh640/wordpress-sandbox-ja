@@ -118,7 +118,17 @@ docker compose exec wordpress wp
 
 ## 関連情報
 
+### ブログ記事
+
 かんたんな説明記事を書きました。
 
 - [GitHub Codespaces で WordPress を動かす方法
  | gotohayato.com](https://gotohayato.com/content/543/)
+
+### 他プロジェクト
+
+`wp-env` という NPM パッケージが WordPress コミュニティによって提供されています。
+`wp-env` は WordPress のプラグインやテーマの開発・テストに有用な Docker ベースの環境をかんたんに立ち上げられる、 Docker / Docker Compose のラッパーツールです。
+
+- [@wordpress/env | Block Editor Handbook | WordPress Developer Resources](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/)
+- [@wordpress/env - npm](https://www.npmjs.com/package/@wordpress/env)
