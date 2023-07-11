@@ -127,8 +127,17 @@ docker compose exec wordpress wp
 
 ### 他プロジェクト
 
-`wp-env` という NPM パッケージが WordPress コミュニティによって提供されています。
-`wp-env` は WordPress のプラグインやテーマの開発・テストに有用な Docker ベースの環境をかんたんに立ち上げられる、 Docker / Docker Compose のラッパーツールです。
+#### `wp-env`
+
+WordPress コミュニティが `wp-env` という Node.js ベースの CLI ツールを提供しています。
+`wp-env` はプラグインやテーマの開発・テストに有用な Docker ベースの環境をかんたんに立ち上げられる、 Docker / Docker Compose のラッパーです。
 
 - [@wordpress/env | Block Editor Handbook | WordPress Developer Resources](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/)
 - [@wordpress/env - npm](https://www.npmjs.com/package/@wordpress/env)
+
+#### `wordpress` イメージ
+
+Docker 公式の WordPress イメージです。
+
+- [Docker](https://hub.docker.com/_/wordpress)
+- [GitHub - docker-library/wordpress: Docker Official Image packaging for WordPress](https://github.com/docker-library/wordpress)
