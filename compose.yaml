@@ -7,6 +7,8 @@ services:
         MYSQL_USER: wp
         MYSQL_PASSWORD: wp
         MYSQL_HOST: db
+        # 指定しなかったときのデフォルト値は "php.ini-developent":
+        # PHP_INI_FILE: "php.ini-production"
     ports:
       - "80:80"
   db:

@@ -36,8 +36,10 @@ RUN docker-php-ext-configure exif && \
   docker-php-ext-enable apcu && \
   a2enmod headers
 
+ARG PHP_INI_FILE="php.ini-development"
+
 # `php.ini` を用意
-RUN mv "${PHP_INI_DIR}/php.ini-development" "${PHP_INI_DIR}/php.ini"
+RUN cp "${PHP_INI_DIR}/${PHP_INI_FILE}" "${PHP_INI_DIR}/php.ini"
 
 # WP-CLI をインストール
 ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /opt/wp-cli/bin/wp
