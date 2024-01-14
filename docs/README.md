@@ -4,8 +4,8 @@
 
 ## 動作確認時の環境
 
-- Docker 24.0.2
-- Docker Compose 2.18.1
+- Docker 24.0.7
+- Docker Compose v2.23.3-desktop.2
 
 ## 内容物
 
