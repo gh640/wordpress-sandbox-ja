@@ -3,14 +3,12 @@ FROM php:8.1-apache
 RUN apt-get update && \
   apt-get install -y \
     default-mysql-client \
-    less \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
     libonig-dev \
     libpng-dev \
     libwebp-dev \
     libzip-dev \
-    vim \
     zlib1g-dev \
     && \
   rm -rf /var/lib/apt/lists/*
