@@ -46,7 +46,8 @@ ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /o
 RUN chmod +rx /opt/wp-cli/bin/wp
 ENV PATH="${PATH}:/opt/wp-cli/bin"
 
-RUN chown -R www-data:www-data .
+# `/var/www/html` のひとつ上の `/var/www` を使うことがあるのでそこから所有者を変更
+RUN chown -R www-data:www-data /var/www
 
 USER www-data
 
