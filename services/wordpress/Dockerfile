@@ -16,7 +16,7 @@ RUN apt-get update && \
 # タイムゾーンの設定
 ENV TZ "Asia/Tokyo"
 RUN rm /etc/localtime && \
-  ln -s /usr/share/zoneinfo/${TZ} /etc/localtime && \
+  ln -s "/usr/share/zoneinfo/${TZ}" /etc/localtime && \
   dpkg-reconfigure -f noninteractive tzdata
 
 # PHP 拡張の設定
