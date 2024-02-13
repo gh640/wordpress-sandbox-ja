@@ -4,6 +4,8 @@ RUN apt-get update && \
   apt-get install -y \
     default-mysql-client \
     libfreetype6-dev \
+    # For gmp PHP extension.
+    libgmp-dev \
     libjpeg62-turbo-dev \
     libonig-dev \
     libpng-dev \
@@ -29,6 +31,8 @@ RUN docker-php-ext-configure exif && \
   docker-php-ext-install -j"$(nproc)" \
     exif \
     gd \
+    # GMP is optional.
+    gmp \
     mysqli \
     opcache \
     zip && \
