@@ -108,6 +108,12 @@ docker compose down
 docker volume rm wordpress-sandbox-ja_db_data
 ```
 
+もしくはコンテナ停止時にオプション `--volumes` をつけることでも削除できます。
+
+```bash
+docker compose down --volumes
+```
+
 ### WP-CLI
 
 コンテナに WP-CLI がインストールされています。
