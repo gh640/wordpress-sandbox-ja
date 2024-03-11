@@ -4,8 +4,15 @@
 
 ## 動作確認時の環境
 
-- Docker 24.0.7
-- Docker Compose v2.23.3-desktop.2
+```bash
+docker --version
+Docker version 25.0.3, build 4debf41
+```
+
+```bash
+docker compose version
+Docker Compose version v2.24.6-desktop.1
+```
 
 ## 内容物
 
