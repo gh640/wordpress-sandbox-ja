@@ -38,7 +38,7 @@ RUN docker-php-ext-configure exif && \
     zip && \
   pecl install apcu && \
   docker-php-ext-enable apcu && \
-  a2enmod headers
+  a2enmod headers rewrite
 
 ARG PHP_INI_FILE="php.ini-development"
 
@@ -60,6 +60,8 @@ RUN wp core download \
   --locale=ja \
   --version=latest \
   --path=/var/www/html
+
+COPY --chown=www-data:www-data .htaccess ./
 
 ARG MYSQL_DATABASE
 ARG MYSQL_USER
