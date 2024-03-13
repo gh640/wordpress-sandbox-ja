@@ -55,10 +55,13 @@ RUN chown -R www-data:www-data /var/www
 
 USER www-data
 
-# WordPress の最新版をダウンロード
+ARG WORDPRESS_VERSION="latest"
+ARG WORDPRESS_LOCALE="en_US"
+
+# WordPress をダウンロード
 RUN wp core download \
-  --locale=ja \
-  --version=latest \
+  --locale="${WORDPRESS_LOCALE}" \
+  --version="${WORDPRESS_VERSION}" \
   --path=/var/www/html
 
 COPY --chown=www-data:www-data .htaccess ./

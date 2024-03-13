@@ -9,6 +9,13 @@ services:
         MYSQL_HOST: db
         # 指定しなかったときのデフォルト値は "php.ini-developent":
         # PHP_INI_FILE: "php.ini-production"
+        # バージョンを指定する（デフォルト: `latest` ）:
+        # - RC 版: `6.5-RC1` など
+        # - 開発版: `nightly`
+        WORDPRESS_VERSION: "latest"
+        # LOCALE を指定する（デフォルト: `en_JS` ）:
+        # - 開発版などでは `ja` が使えないことがあります
+        WORDPRESS_LOCALE: "ja"
     ports:
       - "80:80"
   db:
