@@ -3,9 +3,12 @@ FROM php:8.1-apache
 RUN apt-get update && \
   apt-get install -y \
     default-mysql-client \
+    libmagickwand-dev \
     libfreetype6-dev \
     # For gmp PHP extension.
     libgmp-dev \
+    # For intl PHP extension.
+    libicu-dev \
     libjpeg62-turbo-dev \
     libonig-dev \
     libpng-dev \
@@ -21,10 +24,15 @@ RUN rm /etc/localtime && \
   ln -s "/usr/share/zoneinfo/${TZ}" /etc/localtime && \
   dpkg-reconfigure -f noninteractive tzdata
 
+# `php.ini` を用意
+ARG PHP_INI_FILE="php.ini-development"
+RUN cp "${PHP_INI_DIR}/${PHP_INI_FILE}" "${PHP_INI_DIR}/php.ini"
+
 # PHP 拡張の設定
 RUN docker-php-ext-configure exif && \
   # デフォルトの PNG に加えて FreeType JPEG WEBP をサポート
   docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp && \
+  docker-php-ext-configure intl && \
   docker-php-ext-configure mysqli && \
   docker-php-ext-configure opcache && \
   docker-php-ext-configure zip && \
@@ -33,17 +41,13 @@ RUN docker-php-ext-configure exif && \
     gd \
     # GMP is optional.
     gmp \
+    intl \
     mysqli \
     opcache \
     zip && \
-  pecl install apcu && \
-  docker-php-ext-enable apcu && \
+  pecl install apcu imagick && \
+  docker-php-ext-enable apcu imagick && \
   a2enmod headers rewrite
-
-ARG PHP_INI_FILE="php.ini-development"
-
-# `php.ini` を用意
-RUN cp "${PHP_INI_DIR}/${PHP_INI_FILE}" "${PHP_INI_DIR}/php.ini"
 
 # WP-CLI をインストール
 ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /opt/wp-cli/bin/wp
@@ -55,10 +59,9 @@ RUN chown -R www-data:www-data /var/www
 
 USER www-data
 
+# WordPress をダウンロード
 ARG WORDPRESS_VERSION="latest"
 ARG WORDPRESS_LOCALE="en_US"
-
-# WordPress をダウンロード
 RUN wp core download \
   --locale="${WORDPRESS_LOCALE}" \
   --version="${WORDPRESS_VERSION}" \
@@ -66,12 +69,11 @@ RUN wp core download \
 
 COPY --chown=www-data:www-data .htaccess ./
 
+# `wp-config.php` を作成
 ARG MYSQL_DATABASE
 ARG MYSQL_USER
 ARG MYSQL_PASSWORD
 ARG MYSQL_HOST
-
-# `wp-config.php` を作成
 COPY wp-config-extra.txt /tmp/
 RUN wp config create \
   --dbname="${MYSQL_DATABASE}" \
