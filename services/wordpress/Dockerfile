@@ -6,6 +6,8 @@ RUN apt-get update && \
     libfreetype6-dev \
     # For gmp PHP extension.
     libgmp-dev \
+    # For intl PHP extension.
+    libicu-dev \
     libjpeg62-turbo-dev \
     libonig-dev \
     libpng-dev \
@@ -25,6 +27,7 @@ RUN rm /etc/localtime && \
 RUN docker-php-ext-configure exif && \
   # デフォルトの PNG に加えて FreeType JPEG WEBP をサポート
   docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp && \
+  docker-php-ext-configure intl && \
   docker-php-ext-configure mysqli && \
   docker-php-ext-configure opcache && \
   docker-php-ext-configure zip && \
@@ -33,6 +36,7 @@ RUN docker-php-ext-configure exif && \
     gd \
     # GMP is optional.
     gmp \
+    intl \
     mysqli \
     opcache \
     zip && \
