@@ -50,8 +50,8 @@ RUN docker-php-ext-configure exif && \
   a2enmod headers rewrite
 
 # WP-CLI をインストール
-ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /opt/wp-cli/bin/wp
-RUN chmod +rx /opt/wp-cli/bin/wp
+# See: https://github.com/moby/buildkit/pull/1492
+ADD --chmod=755 https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /opt/wp-cli/bin/wp
 ENV PATH="${PATH}:/opt/wp-cli/bin"
 
 # `/var/www/html` のひとつ上の `/var/www` を使うことがあるのでそこから所有者を変更
