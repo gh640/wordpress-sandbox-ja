@@ -26,7 +26,9 @@ RUN rm /etc/localtime && \
 
 # `php.ini` を用意
 ARG PHP_INI_FILE="php.ini-development"
-RUN cp "${PHP_INI_DIR}/${PHP_INI_FILE}" "${PHP_INI_DIR}/php.ini"
+ARG PHP_INI_EXTRA=""
+RUN cp "${PHP_INI_DIR}/${PHP_INI_FILE}" "${PHP_INI_DIR}/php.ini" && \
+  echo "${PHP_INI_EXTRA}" >> "${PHP_INI_DIR}/php.ini"
 
 # PHP 拡張の設定
 RUN docker-php-ext-configure exif && \
