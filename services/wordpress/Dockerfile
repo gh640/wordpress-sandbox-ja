@@ -49,7 +49,7 @@ RUN docker-php-ext-configure exif && \
     zip && \
   pecl install apcu imagick && \
   docker-php-ext-enable apcu imagick && \
-  a2enmod headers rewrite
+  a2enmod expires headers rewrite
 
 # WP-CLI をインストール
 # See: https://github.com/moby/buildkit/pull/1492
@@ -69,7 +69,9 @@ RUN wp core download \
   --version="${WORDPRESS_VERSION}" \
   --path=/var/www/html
 
-COPY --chown=www-data:www-data .htaccess ./
+COPY --chown=www-data:www-data .htaccess-default .htaccess-extra ./
+RUN cat .htaccess-extra .htaccess-default >> .htaccess && \
+  rm .htaccess-extra .htaccess-default
 
 # `wp-config.php` を作成
 ARG MYSQL_DATABASE

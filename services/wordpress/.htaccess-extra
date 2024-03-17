@@ -1,0 +1,38 @@
+SetOutputFilter DEFLATE
+
+AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/html
+AddOutputFilterByType DEFLATE text/xml
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE text/javascript
+AddOutputFilterByType DEFLATE application/xml
+AddOutputFilterByType DEFLATE application/xhtml+xml
+AddOutputFilterByType DEFLATE application/rss+xml
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/x-javascript
+AddOutputFilterByType DEFLATE image/svg+xml
+
+ExpiresActive On
+
+ExpiresByType text/plain "access 10 seconds"
+ExpiresByType text/css "access 1 week"
+ExpiresByType text/javascript "access 1 week"
+ExpiresByType application/json "access 10 seconds"
+ExpiresByType application/x-font-ttf "access 1 week"
+ExpiresByType application/x-font-woff "access 1 week"
+ExpiresByType application/x-font-woff2 "access 1 week"
+ExpiresByType application/javascript "access 1 week"
+ExpiresByType application/x-javascript "access 1 week"
+ExpiresByType image/jpg "access 1 week"
+ExpiresByType image/jpeg "access 1 week"
+ExpiresByType image/png "access 1 week"
+ExpiresByType image/gif "access 1 week"
+ExpiresByType image/avif "access 1 week"
+ExpiresByType image/webp "access 1 week"
+ExpiresByType image/svg+xml "access 1 week"
+ExpiresByType image/x-icon "access 1 week"
+ExpiresByType font/ttf "access 1 week"
+ExpiresByType font/woff "access 1 week"
+ExpiresByType font/woff2 "access 1 week"
+
+ExpiresDefault "access 1 week"
