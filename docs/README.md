@@ -17,7 +17,7 @@ Docker Compose version v2.24.6-desktop.1
 ## 内容物
 
 - Apache 2.4
-- PHP 8.1
+- PHP 8.2
 - WordPress 日本語版 最新
 - WP-CLI 最新
 
