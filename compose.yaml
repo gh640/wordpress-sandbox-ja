@@ -21,6 +21,8 @@ services:
         WORDPRESS_LOCALE: "ja"
     ports:
       - "80:80"
+    volumes:
+      - wordpress_uploads:/var/www/html/wp-content/uploads
   db:
     build: ./services/db
     environment:
@@ -32,4 +34,5 @@ services:
       - db_data:/var/lib/mysql
 
 volumes:
+  wordpress_uploads:
   db_data:
