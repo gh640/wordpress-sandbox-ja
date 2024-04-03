@@ -1,4 +1,4 @@
-FROM php:8.1-apache
+FROM php:8.2-apache
 
 RUN apt-get update && \
   apt-get install -y \
@@ -26,7 +26,9 @@ RUN rm /etc/localtime && \
 
 # `php.ini` を用意
 ARG PHP_INI_FILE="php.ini-development"
-RUN cp "${PHP_INI_DIR}/${PHP_INI_FILE}" "${PHP_INI_DIR}/php.ini"
+ARG PHP_INI_EXTRA=""
+RUN cp "${PHP_INI_DIR}/${PHP_INI_FILE}" "${PHP_INI_DIR}/php.ini" && \
+  echo "${PHP_INI_EXTRA}" >> "${PHP_INI_DIR}/php.ini"
 
 # PHP 拡張の設定
 RUN docker-php-ext-configure exif && \
@@ -47,11 +49,11 @@ RUN docker-php-ext-configure exif && \
     zip && \
   pecl install apcu imagick && \
   docker-php-ext-enable apcu imagick && \
-  a2enmod headers rewrite
+  a2enmod expires headers rewrite
 
 # WP-CLI をインストール
-ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /opt/wp-cli/bin/wp
-RUN chmod +rx /opt/wp-cli/bin/wp
+# See: https://github.com/moby/buildkit/pull/1492
+ADD --chmod=755 https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /opt/wp-cli/bin/wp
 ENV PATH="${PATH}:/opt/wp-cli/bin"
 
 # `/var/www/html` のひとつ上の `/var/www` を使うことがあるのでそこから所有者を変更
@@ -67,7 +69,9 @@ RUN wp core download \
   --version="${WORDPRESS_VERSION}" \
   --path=/var/www/html
 
-COPY --chown=www-data:www-data .htaccess ./
+COPY --chown=www-data:www-data .htaccess-default .htaccess-extra ./
+RUN cat .htaccess-extra .htaccess-default >> .htaccess && \
+  rm .htaccess-extra .htaccess-default
 
 # `wp-config.php` を作成
 ARG MYSQL_DATABASE

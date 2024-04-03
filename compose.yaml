@@ -9,6 +9,9 @@ services:
         MYSQL_HOST: db
         # 指定しなかったときのデフォルト値は "php.ini-developent":
         # PHP_INI_FILE: "php.ini-production"
+        PHP_INI_EXTRA: |
+          post_max_size = 20M
+          upload_max_filesize = 20M
         # バージョンを指定する（デフォルト: `latest` ）:
         # - RC 版: `6.5-RC1` など
         # - 開発版: `nightly`
@@ -18,6 +21,8 @@ services:
         WORDPRESS_LOCALE: "ja"
     ports:
       - "80:80"
+    volumes:
+      - wordpress_uploads:/var/www/html/wp-content/uploads
   db:
     build: ./services/db
     environment:
@@ -29,4 +34,5 @@ services:
       - db_data:/var/lib/mysql
 
 volumes:
+  wordpress_uploads:
   db_data:
