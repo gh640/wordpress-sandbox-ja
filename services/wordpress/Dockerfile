@@ -56,6 +56,11 @@ RUN docker-php-ext-configure exif && \
 ADD --chmod=755 https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /opt/wp-cli/bin/wp
 ENV PATH="${PATH}:/opt/wp-cli/bin"
 
+# WP-CLI の設定ファイルを設置
+# See: https://make.wordpress.org/cli/handbook/references/config/
+COPY --chmod=755 ./wp-cli.yml /opt/wp-cli/
+ENV WP_CLI_CONFIG_PATH="/opt/wp-cli/wp-cli.yml"
+
 # `/var/www/html` のひとつ上の `/var/www` を使うことがあるのでそこから所有者を変更
 RUN chown -R www-data:www-data /var/www
 

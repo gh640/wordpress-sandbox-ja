@@ -1,0 +1,4 @@
+# See: https://make.wordpress.org/cli/handbook/references/config/
+apache_modules:
+  - mod_rewrite
+
