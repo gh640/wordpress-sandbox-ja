@@ -36,6 +36,12 @@ docker compose pull
 docker compose up -d
 ```
 
+Docker volume に置いている `wp-content/uploads` の所有者が最初は `root` になってしまっているので、 `www-data` に変更する必要があります。
+
+```bash
+docker compose exec -u root wordpress chown -R www-data wp-content/uploads
+```
+
 コンテナを起動すると `localhost` のポート `80` で WordPress が起動するのでブラウザまたはターミナルでインストール操作を行います。
 
 ブラウザからインストールする場合のイメージ:
@@ -62,18 +68,30 @@ docker compose exec wordpress \
 
 #### GitHub Codespaces を使う場合
 
-GitHub Codespaces でプレビューを利用する場合は、 URL が `localhost` ではないので、ブラウザではなくターミナルからインストールを行う方がスムーズです。
+GitHub Codespaces でプレビューを利用する場合は、 URL が `localhost` ではないので以下の対応が必要です。
+
+##### GitHub Codespaces で必要な対応 1
+
+`compose.yaml` ファイルの build args の `WP_CONFIG_EXTRA` のコメントアウトされた行を安コメントします。
+
+```yaml
+WP_CONFIG_EXTRA: "wp-config-extra-github-codespaces.txt"
+```
+
+##### GitHub Codespaces で必要な対応 2
+
+WordPress のインストール手続きをブラウザではなくターミナルから行います。
 
 イメージ:
 
 ```bash
-WP_URL="https://${CODESPACE_NAME}-80.githubpreview.dev"
+WP_URL="https://${CODESPACE_NAME}-80.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
 WP_ADMIN_USER="admin"
 WP_ADMIN_EMAIL="example@example.com"
 WP_ADMIN_PASSWORD="password"
 
-docker compose exec wordpress \
-  wp --allow-root core install \
+docker compose exec -u www-data wordpress \
+  wp core install \
   --url="$WP_URL" \
   --title="WordPress サンドボックス" \
   --admin_user="$WP_ADMIN_USER" \
@@ -84,13 +102,13 @@ docker compose exec wordpress \
 
 `wp` は `wordpress` イメージにインストールされた WP-CLI です。
 
-このコマンドはリポジトリ内の `codespaces/install-wordpress-on-docker.sh` に記述してあるので、上のコマンドの代わりにこのスクリプトを実行しても OK です。
+このコマンドはリポジトリ内の `codespaces/install-wordpress-on-docker.sh` に記述してあるので、上のコマンドの代わりにスクリプトを実行しても OK です。
 
 ```bash
 ./codespaces/install-wordpress-on-docker.sh
 ```
 
-コンテナ起動直後に実行すると、 MySQL が起動しきっておらずデータベース接続エラーが起こることがあります。
+コンテナ起動直後に実行すると、 MySQL のプロセスが起動しきっておらずデータベース接続エラーが起こることがあります。
 その場合は少し（数秒）待ってから再度コマンドを実行します。
 
 ポートの公開設定（ Visibility ）が private だとブラウザでアクセスしたときに CSS などが正しく読み込まれないので、ポートの公開設定を public に変更します。
