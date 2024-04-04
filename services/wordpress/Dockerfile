@@ -79,11 +79,12 @@ RUN cat .htaccess-extra .htaccess-default >> .htaccess && \
   rm .htaccess-extra .htaccess-default
 
 # `wp-config.php` を作成
+ARG WP_CONFIG_EXTRA="wp-config-extra.txt"
 ARG MYSQL_DATABASE
 ARG MYSQL_USER
 ARG MYSQL_PASSWORD
 ARG MYSQL_HOST
-COPY wp-config-extra.txt /tmp/
+COPY "${WP_CONFIG_EXTRA}" /tmp/wp-config-extra.txt
 RUN wp config create \
   --dbname="${MYSQL_DATABASE}" \
   --dbuser="${MYSQL_USER}" \

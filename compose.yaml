@@ -7,6 +7,8 @@ services:
         MYSQL_USER: wp
         MYSQL_PASSWORD: wp
         MYSQL_HOST: db
+        # GitHub Codespaces で利用する:
+        # WP_CONFIG_EXTRA: "wp-config-extra-github-codespaces.txt"
         # 指定しなかったときのデフォルト値は "php.ini-developent":
         # PHP_INI_FILE: "php.ini-production"
         PHP_INI_EXTRA: |
