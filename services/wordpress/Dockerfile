@@ -90,8 +90,6 @@ RUN wp config create \
   --dbuser="${MYSQL_USER}" \
   --dbpass="${MYSQL_PASSWORD}" \
   --dbhost="${MYSQL_HOST}" \
-  --dbcharset=utf8mb4 \
-  --dbcollate=utf8mb4_unicode_ci \
   --skip-check \
   --extra-php \
   < /tmp/wp-config-extra.txt
