@@ -28,10 +28,10 @@ services:
   db:
     build: ./services/db
     environment:
-      MARIADB_RANDOM_ROOT_PASSWORD: 1
-      MARIADB_DATABASE: wp
-      MARIADB_USER: wp
-      MARIADB_PASSWORD: wp
+      MYSQL_RANDOM_ROOT_PASSWORD: 1
+      MYSQL_DATABASE: wp
+      MYSQL_USER: wp
+      MYSQL_PASSWORD: wp
     volumes:
       - db_data:/var/lib/mysql
 

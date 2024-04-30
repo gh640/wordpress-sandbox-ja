@@ -18,6 +18,7 @@ Docker Compose version v2.24.6-desktop.1
 
 - Apache 2.4
 - PHP 8.2
+- MySQL 8.x
 - WordPress 日本語版 最新
 - WP-CLI 最新
 
@@ -29,7 +30,7 @@ Docker Compose version v2.24.6-desktop.1
 # WordPress イメージをビルド
 docker compose build
 
-# MariaDB イメージのダウンロード
+# MySQL イメージのダウンロード
 docker compose pull
 
 # コンテナ起動
@@ -127,7 +128,7 @@ docker compose exec -u www-data wordpress \
 docker compose down
 ```
 
-### MariaDB ボリュームの削除
+### MySQL ボリュームの削除
 
 ```bash
 docker volume rm wordpress-sandbox-ja_db_data
